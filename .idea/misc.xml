@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/activity_logged_gaurd.xml" value="0.18478260869565216" />
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/activity_logged_guard.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/activity_logged_user.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/activity_qrscanner.xml" value="0.1" />
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/activity_scanner_view.xml" value="0.1" />
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/activity_scanner_view_guard.xml" value="0.18478260869565216" />
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/login_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/signup_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/Suryansh Srivastava/Desktop/Android-App-Backend-With-Node-JS-master/Android/app/src/main/res/layout/user_home.xml" value="0.25416666666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+</project>

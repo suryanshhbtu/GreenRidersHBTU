@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoggedGuardActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GUARD NAME: "
+            android:padding="4dp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/nameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Suryansh"
+            android:padding="4dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EMAIL ID "
+            android:padding="4dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/emailTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200106069@HBTU.AC.IN"
+            android:padding="4dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CYCLE ID "
+            android:padding="4dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/cycleidTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XYXYXYXYXYXX"
+            android:padding="4dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <Button
+            android:id="@+id/scanbtn"
+            android:layout_width="211dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="8dp"
+            android:text="Scan QRCode"
+            android:textSize="20sp"/>
+        <Button
+            android:id="@+id/returnbtn"
+            android:layout_width="211dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="208dp"
+            android:text="Submit Button"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+</LinearLayout>
