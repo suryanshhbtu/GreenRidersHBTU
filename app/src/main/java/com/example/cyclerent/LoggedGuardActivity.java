@@ -27,6 +27,7 @@ public class LoggedGuardActivity extends AppCompatActivity {
     String _id;
     Button scanbtn, returnbtn;
     public static TextView cycleidTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,6 @@ public class LoggedGuardActivity extends AppCompatActivity {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
-
 
 
         Intent intent = getIntent();
@@ -56,90 +56,93 @@ public class LoggedGuardActivity extends AppCompatActivity {
         cycleidTV = (TextView) findViewById(R.id.cycleidTV);
 //        cycleidTV.setText(cycleid);
 
-        cycleidTV =(TextView)findViewById(R.id.cycleidTV);
-        scanbtn=(Button) findViewById(R.id.scanbtn);
+        cycleidTV = (TextView) findViewById(R.id.cycleidTV);
+        scanbtn = (Button) findViewById(R.id.scanbtn);
 
         scanbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(LoggedGuardActivity.this, "Button Dababa",
                         Toast.LENGTH_LONG).show();
-                startActivity(new Intent(LoggedGuardActivity.this,scannerView.class));
+                startActivity(new Intent(LoggedGuardActivity.this, scannerView.class));
             }
         });
-        }}
-//        returnbtn = (Button) findViewById(R.id.rentbtn);
-//        returnbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Toast.makeText(LoggedGaurdActivity.this, "Rented Button is Pressed",
-////                        Toast.LENGTH_LONG).show();
-////
-////                String cycleid = (String) cycleidTV.getText();
-////                Toast.makeText(LoggedGaurdActivity.this,cycleid, Toast.LENGTH_LONG).show();
-////
-////                if(!cycleid.equals(""))
-////
-////                    getCycleHandler(cycleid);
-//////                if(statusOfCycle)
-//
-//
-//            }
-//        });
-//
+
+        returnbtn = (Button) findViewById(R.id.returnbtn);
+        returnbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(LoggedGuardActivity.this, "Return Button is Pressed",
+                        Toast.LENGTH_LONG).show();
+
+                String cycleid = (String) cycleidTV.getText();
+                Toast.makeText(LoggedGuardActivity.this, cycleid, Toast.LENGTH_LONG).show();
+
+                if (!cycleid.equals(""))
+
+                    getCycleHandler(cycleid);
+////                if(statusOfCycle)
+
+
+            }
+        });
+    }
+
+    //
 //    }
-//    private void getCycleHandler(String cycleid) {
-//        Toast.makeText(LoggedGuardActivity.this,"get cycle me ghusa", Toast.LENGTH_SHORT).show();
-//        // post request
-//        Call<Cycle> call = retrofitInterface.getCycle(cycleid);
-//        // execute http request
-//        call.enqueue(new Callback<Cycle>() {
-//            @Override
-//            public void onResponse(Call<Cycle> call, Response<Cycle> response) {
-//
-//                if (response.code() == 200) {
-//                    Cycle result = response.body();
-//
-////                    Intent intent = new Intent(LoggedUserActivity.this, LoggedUserActivity.class);
-////                        Log.i("SURFYANSH",result.toString());
-////                    String _id = result.get_id();
-//                    String cycleid = result.getCycleid();
-//                    String status = result.getStatus();
-//                    String stdid = result.getStdid();
-//                    Toast.makeText(LoggedGuardActivity.this, status,
-//                            Toast.LENGTH_LONG).show();
-//                    if (status.equals("")) {
-//                        // AGAR RENTED NAHI HAI
-////                        statusOfCycle = true;
+    private void getCycleHandler(String cycleid) {
+        Toast.makeText(LoggedGuardActivity.this, "get cycle me ghusa", Toast.LENGTH_SHORT).show();
+        // post request
+        Call<Cycle> call = retrofitInterface.getCycle(cycleid);
+        // execute http request
+        call.enqueue(new Callback<Cycle>() {
+            @Override
+            public void onResponse(Call<Cycle> call, Response<Cycle> response) {
+
+                if (response.code() == 200) {
+                    Cycle result = response.body();
+
+//                    Intent intent = new Intent(LoggedUserActivity.this, LoggedUserActivity.class);
+//                        Log.i("SURFYANSH",result.toString());
+//                    String _id = result.get_id();
+                    String cycleid = result.getCycleid();
+                    String status = result.getStatus();
+                    String stdid = result.getStdid();
+                    Toast.makeText(LoggedGuardActivity.this, status,
+                            Toast.LENGTH_LONG).show();
+                    if (status.equals("rented")) {
+                        // AGAR RENTED NAHI HAI
+//                        statusOfCycle = true;
 //                        setRentedHandler(cycleid);
 //                        setRentedUserHandler(cycleid);
-//                        Toast.makeText(LoggedGuardActivity.this,"Nahi Hai", Toast.LENGTH_SHORT).show();
-//
-//                    } else {
-//                        Toast.makeText(LoggedGuardActivity.this,"Pehle Se Rented Hai", Toast.LENGTH_SHORT).show();
-////                        AlertDialog.Builder builder1 = new AlertDialog.Builder(LoggedUserActivity.this);
-////                        builder1.setTitle("This Cycle Is Already Rented");
-//                    }
-////                    startActivity(intent);
-//
-//                } else if (response.code() == 404) {
-//                    Toast.makeText(LoggedGuardActivity.this, "Wrong Credentials",
-//                            Toast.LENGTH_LONG).show();
-//                }else{
-//
-//                    Toast.makeText(LoggedGuardActivity.this, "Some Error Occured",
-//                            Toast.LENGTH_LONG).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Cycle> call, Throwable t) {
-//                Toast.makeText(LoggedGuardActivity.this, t.getMessage(),
-//                        Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
+                        Toast.makeText(LoggedGuardActivity.this, "Nahi Hai", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(LoggedGuardActivity.this, "Cycle Rented Nahi Hai", Toast.LENGTH_SHORT).show();
+//                        AlertDialog.Builder builder1 = new AlertDialog.Builder(LoggedUserActivity.this);
+//                        builder1.setTitle("This Cycle Is Already Rented");
+                    }
+//                    startActivity(intent);
+
+                } else if (response.code() == 404) {
+                    Toast.makeText(LoggedGuardActivity.this, "Wrong Credentials",
+                            Toast.LENGTH_LONG).show();
+                } else {
+
+                    Toast.makeText(LoggedGuardActivity.this, "Some Error Occured",
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Cycle> call, Throwable t) {
+                Toast.makeText(LoggedGuardActivity.this, t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+}
 //
 //    private void setRentedHandler(String cycleid) {
 //

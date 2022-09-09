@@ -97,17 +97,17 @@ public class MainActivity extends AppCompatActivity {
 
                             builder1.show();
 
-//                            if(result.getRole().equals("guard")){
-//                                userType = "guard";
-//                                Toast.makeText(MainActivity.this, " Guard SAAB",
-//                                        Toast.LENGTH_LONG).show();
-//                                Intent intent = new Intent(MainActivity.this, LoggedGuardActivity.class);
-//////                                Log.i("SURFYANSH", result.toString());
-//                                intent.putExtra("_id", result.get_id());
-//                                intent.putExtra("name", result.getName());
-//                                intent.putExtra("email", result.getEmail());
-//                                startActivity(intent);
-//                            }else {
+                            if(result.getRole().equals("guard")){
+                                userType = "guard";
+                                Toast.makeText(MainActivity.this, " Guard SAAB",
+                                        Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(MainActivity.this, LoggedGuardActivity.class);
+////                                Log.i("SURFYANSH", result.toString());
+                                intent.putExtra("_id", result.get_id());
+                                intent.putExtra("name", result.getName());
+                                intent.putExtra("email", result.getEmail());
+                                startActivity(intent);
+                            }else {
                                 userType = "student";
                                 Intent intent = new Intent(MainActivity.this, LoggedUserActivity.class);
 //                                Log.i("SURFYANSH", result.toString());
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                     intent.putExtra("cycleid", "Not Rented");
                                 }
                                 startActivity(intent);
-//                            }
+                            }
 
                         } else if (response.code() == 404) {
                             Toast.makeText(MainActivity.this, "Wrong Credentials",
