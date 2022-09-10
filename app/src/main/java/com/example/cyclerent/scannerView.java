@@ -75,7 +75,7 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
         private void getCycleHandler(String cycleid) {
             Toast.makeText(com.example.cyclerent.scannerView.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();
             // post request
-            Call<Cycle> call = retrofitInterface.getCycle(cycleid);
+            Call<Cycle> call = retrofitInterface.getCycle("Bearer "+MainActivity.AUTH_TOKEN,cycleid);
             // execute http request
             call.enqueue(new Callback<Cycle>() {
                 @Override

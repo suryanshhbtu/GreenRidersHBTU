@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextClock;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Retrofit retrofit;  // global variable of retrofit class
     private RetrofitInterface retrofitInterface; // global variable of retrofit Interface
     private String BASE_URL = "https://pacific-fortress-54764.herokuapp.com";
-
+    public static String AUTH_TOKEN = "";
     public static String userType = "";
 
     @Override
@@ -40,41 +42,45 @@ public class MainActivity extends AppCompatActivity {
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
 
         // if login button is presses
-        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+
+
                 handleLoginDialog(); // defined below
-            }
-        });
+
+//            }
+//        });
         // if signup button is presses
-        findViewById(R.id.signup).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        findViewById(R.id.signup).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //                getCycleHandler("WIFI:S:Tatto;T:WPA;P:e98$ajewr;H:false;;");
 //                handleSignupDialog(); // defined below
 //                setRentedHandler("WIFI:S:Tatto;T:WPA;P:e98$ajewr;H:false;;");
-            }
-        });
+//            }
+//        });
 
     }
 
     private void handleLoginDialog() {
 
-        View view = getLayoutInflater().inflate(R.layout.login_dialog, null);
-        // inflating loging_dialog.xml
+//        View view = getLayoutInflater().inflate(R.layout.login_dialog, null);
+//        // inflating loging_dialog.xml
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this); // alert type
+//
+//        builder.setView(view).show();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this); // alert type
-
-        builder.setView(view).show();
-
-        Button loginBtn = view.findViewById(R.id.login);
-        final EditText emailEdit = view.findViewById(R.id.emailEditText);
-        final EditText passwordEdit = view.findViewById(R.id.passwordEditText);
+        TextView loginBtn = (TextView) findViewById(R.id.login);
+        final EditText emailEdit = (EditText) findViewById(R.id.emailEditText);
+        final EditText passwordEdit = (EditText) findViewById(R.id.passwordEditText);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(MainActivity.this, "Loging You In...",
+                        Toast.LENGTH_SHORT).show();
                 HashMap<String, String> map = new HashMap<>();
                 // preparing for post
                 map.put("email", emailEdit.getText().toString());
@@ -94,13 +100,13 @@ public class MainActivity extends AppCompatActivity {
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
                             builder1.setTitle(result.getMessage());
                             builder1.setMessage(result.getToken());
-
                             builder1.show();
+                            AUTH_TOKEN = result.getToken();
 
                             if(result.getRole().equals("guard")){
                                 userType = "guard";
-                                Toast.makeText(MainActivity.this, " Guard SAAB",
-                                        Toast.LENGTH_LONG).show();
+//                                Toast.makeText(MainActivity.this, " Guard SAAB",
+//                                        Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(MainActivity.this, LoggedGuardActivity.class);
 ////                                Log.i("SURFYANSH", result.toString());
                                 intent.putExtra("_id", result.get_id());
@@ -199,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
     private void getCycleHandler(String cycleid) {
         Toast.makeText(MainActivity.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();
         // post request
-        Call<Cycle> call = retrofitInterface.getCycle(cycleid);
+        Call<Cycle> call = retrofitInterface.getCycle("Bearer "+MainActivity.AUTH_TOKEN,cycleid);
         // execute http request
         call.enqueue(new Callback<Cycle>() {
             @Override

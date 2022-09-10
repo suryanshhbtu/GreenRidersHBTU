@@ -14,16 +14,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".LoggedGuardActivity"
+            android:name=".AppInfo"
             android:exported="false" />
         <activity
-            android:name=".LoggedGaurdActivity1"
+            android:name=".LoggedGuardActivity"
             android:exported="false" />
         <activity
             android:name=".LoggedUserActivity"
             android:exported="false" />
         <activity android:name=".scannerView" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
