@@ -5,13 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import java.util.HashMap;
 
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private String BASE_URL = "https://pacific-fortress-54764.herokuapp.com";
     public static String AUTH_TOKEN = "";
     public static String userType = "";
-
+    public static boolean addCycle = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,15 +41,16 @@ public class MainActivity extends AppCompatActivity {
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
 
         // if login button is presses
-//        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
 
-                handleLoginDialog(); // defined below
+                startActivity(new Intent(MainActivity.this, AdminHome.class));
+//                handleLoginDialog(); // defined below
 
-//            }
-//        });
+            }
+        });
         // if signup button is presses
 //        findViewById(R.id.signup).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -149,58 +149,58 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void handleSignupDialog() {
-
-        View view = getLayoutInflater().inflate(R.layout.signup_dialog, null);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(view).show();
-
-        Button signupBtn = view.findViewById(R.id.signup);
-        final EditText nameEdit = view.findViewById(R.id.nameEdit);
-        final EditText emailEdit = view.findViewById(R.id.emailEditText);
-        final EditText passwordEdit = view.findViewById(R.id.passwordEditText);
-
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                HashMap<String, String> map = new HashMap<>();
-
-//                map.put("name", nameEdit.getText().toString());
-                map.put("email", emailEdit.getText().toString());
-                map.put("password", passwordEdit.getText().toString());
-
-                Call<Void> call = retrofitInterface.executeSignup(map);
-
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-
-                        if (response.code() == 201) {
-                            Toast.makeText(MainActivity.this,
-                                    "Signed up successfully", Toast.LENGTH_LONG).show();
-                        } else if (response.code() == 409) {
-                            Toast.makeText(MainActivity.this,
-                                    "Already registered", Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(MainActivity.this,
-                                    "Some Error Occured", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(MainActivity.this, t.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-        });
-
-    }
+//    private void handleSignupDialog() {
+//
+//        View view = getLayoutInflater().inflate(R.layout.signup_dialog, null);
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setView(view).show();
+//
+//        Button signupBtn = view.findViewById(R.id.signup);
+//        final EditText nameEdit = view.findViewById(R.id.nameEdit);
+//        final EditText emailEdit = view.findViewById(R.id.emailEditText);
+//        final EditText passwordEdit = view.findViewById(R.id.passwordEditText);
+//
+//        signupBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                HashMap<String, String> map = new HashMap<>();
+//
+////                map.put("name", nameEdit.getText().toString());
+//                map.put("email", emailEdit.getText().toString());
+//                map.put("password", passwordEdit.getText().toString());
+//
+//                Call<Void> call = retrofitInterface.executeSignup(map);
+//
+//                call.enqueue(new Callback<Void>() {
+//                    @Override
+//                    public void onResponse(Call<Void> call, Response<Void> response) {
+//
+//                        if (response.code() == 201) {
+//                            Toast.makeText(MainActivity.this,
+//                                    "Signed up successfully", Toast.LENGTH_LONG).show();
+//                        } else if (response.code() == 409) {
+//                            Toast.makeText(MainActivity.this,
+//                                    "Already registered", Toast.LENGTH_LONG).show();
+//                        }else{
+//                            Toast.makeText(MainActivity.this,
+//                                    "Some Error Occured", Toast.LENGTH_LONG).show();
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Void> call, Throwable t) {
+//                        Toast.makeText(MainActivity.this, t.getMessage(),
+//                                Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//
+//            }
+//        });
+//
+//    }
 
     private void getCycleHandler(String cycleid) {
         Toast.makeText(MainActivity.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();

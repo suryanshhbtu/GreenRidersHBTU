@@ -102,7 +102,6 @@ public class LoggedUserActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
                 rentbtn.setVisibility(View.VISIBLE);
                 rentLL.setVisibility(View.VISIBLE);
 //                Toast.makeText(LoggedUserActivity.this, "Rented Button is Pressed",
