@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                startActivity(new Intent(MainActivity.this, AdminHome.class));
-//                handleLoginDialog(); // defined below
+
+                handleLoginDialog(); // defined below
 
             }
         });
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("name", result.getName());
                                 intent.putExtra("email", result.getEmail());
                                 startActivity(intent);
-                            }else {
+                            }else if(result.getRole().equals("student")){
                                 userType = "student";
                                 Intent intent = new Intent(MainActivity.this, LoggedUserActivity.class);
 //                                Log.i("SURFYANSH", result.toString());
@@ -128,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                                     intent.putExtra("cycleid", "Not Rented");
                                 }
                                 startActivity(intent);
+                            }else{
+                                startActivity(new Intent(MainActivity.this, AdminHome.class));
                             }
 
                         } else if (response.code() == 404) {

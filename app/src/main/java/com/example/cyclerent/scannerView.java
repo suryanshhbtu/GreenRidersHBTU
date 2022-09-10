@@ -69,8 +69,8 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
 //            if(MainActivity.addCycle){
 
                 Toast.makeText(com.example.cyclerent.scannerView.this,rawResult.getText(), Toast.LENGTH_SHORT).show();
-                AdminAddCycle.qrTV.setText(rawResult.getText());
-                MainActivity.addCycle = false;
+//                AdminAddCycle.qrTV.setText(rawResult.getText());
+//                MainActivity.addCycle = false;
 //            }
 
             cycleid = rawResult.getText();
