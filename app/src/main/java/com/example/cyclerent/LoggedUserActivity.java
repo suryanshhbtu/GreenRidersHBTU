@@ -120,14 +120,7 @@ public class LoggedUserActivity extends AppCompatActivity {
 
     }
 
-    // Adding Menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/menu_catalog.xml file.
-        // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_catalog, menu);
-        return true;
-    }
+
     private void getCycleHandler(String cycleid) {
 //        Toast.makeText(LoggedUserActivity.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();
         // post request
@@ -264,6 +257,14 @@ public class LoggedUserActivity extends AppCompatActivity {
 
     }
 
+    // Adding Menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -288,7 +289,11 @@ public class LoggedUserActivity extends AppCompatActivity {
                 return true;
              case R.id.appinfo:
                 startActivity(new Intent(LoggedUserActivity.this, AppInfo.class));
-                Toast.makeText(this,"All Transaction Data Deleted In The Table",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Loading Info",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.changePasswordMenu:
+                startActivity(new Intent(LoggedUserActivity.this, ChangePassword.class));
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

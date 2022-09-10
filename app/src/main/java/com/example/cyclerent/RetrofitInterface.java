@@ -61,6 +61,10 @@ public interface RetrofitInterface {
 
     @DELETE("/users/{email}")
     Call<Void> executeDelete(@Path("email") String abc);
+
+
+    @PATCH("/users/password/{id}")
+    Call<Void> executeChangePassword(@Path("id") String abc,@Body HashMap<String, String> map);
 //    @PATCH("cycles/{cycleid}")
 //    Call<Cycle> getCycle(@Path("cycleid") String id);
 }

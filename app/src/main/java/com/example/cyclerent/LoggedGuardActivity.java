@@ -106,14 +106,7 @@ public class LoggedGuardActivity extends AppCompatActivity {
     }
 
 
-    // Adding Menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/menu_catalog.xml file.
-        // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_catalog, menu);
-        return true;
-    }
+
     //
 //    }
     private void getCycleHandler(String cycleid) {
@@ -253,6 +246,15 @@ public class LoggedGuardActivity extends AppCompatActivity {
         });
 
     }
+
+    // Adding Menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -275,6 +277,10 @@ public class LoggedGuardActivity extends AppCompatActivity {
             case R.id.appinfo:
                 startActivity(new Intent(LoggedGuardActivity.this, AppInfo.class));
                 Toast.makeText(this,"App Info",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.changePasswordMenu:
+                startActivity(new Intent(LoggedGuardActivity.this, ChangePassword.class));
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

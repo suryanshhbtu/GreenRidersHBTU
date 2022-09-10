@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static String AUTH_TOKEN = "";
     public static String userType = "";
     public static boolean addCycle = false;
+    public static String _id = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,16 +43,16 @@ public class MainActivity extends AppCompatActivity {
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
 
         // if login button is presses
-        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 
 
 
                 handleLoginDialog(); // defined below
 
-            }
-        });
+//            }
+//        });
         // if signup button is presses
 //        findViewById(R.id.signup).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this); // alert type
 //
 //        builder.setView(view).show();
-
+//        RelativeLayout loginRL = findViewById(R.id.loginRL);
         TextView loginBtn = (TextView) findViewById(R.id.login);
         final EditText emailEdit = (EditText) findViewById(R.id.emailEditText);
         final EditText passwordEdit = (EditText) findViewById(R.id.passwordEditText);
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                             AUTH_TOKEN = result.getToken();
 
                             if(result.getRole().equals("guard")){
+                                _id = result.get_id();
                                 userType = "guard";
 //                                Toast.makeText(MainActivity.this, " Guard SAAB",
 //                                        Toast.LENGTH_LONG).show();
@@ -114,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("email", result.getEmail());
                                 startActivity(intent);
                             }else if(result.getRole().equals("student")){
+                                _id = result.get_id();
                                 userType = "student";
                                 Intent intent = new Intent(MainActivity.this, LoggedUserActivity.class);
 //                                Log.i("SURFYANSH", result.toString());
@@ -129,10 +133,22 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 startActivity(intent);
                             }else{
-                                startActivity(new Intent(MainActivity.this, AdminHome.class));
+                                _id = result.get_id();
+                                userType = "guard";
+//                                Toast.makeText(MainActivity.this, " Guard SAAB",
+//                                        Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(MainActivity.this, AdminHome.class);
+////                                Log.i("SURFYANSH", result.toString());
+                                intent.putExtra("_id", result.get_id());
+                                intent.putExtra("name", result.getName());
+                                intent.putExtra("email", result.getEmail());
+                                startActivity(intent);
                             }
 
                         } else if (response.code() == 404) {
+                            Toast.makeText(MainActivity.this, "Wrong Credentials",
+                                    Toast.LENGTH_LONG).show();
+                        }else{
                             Toast.makeText(MainActivity.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
                         }
