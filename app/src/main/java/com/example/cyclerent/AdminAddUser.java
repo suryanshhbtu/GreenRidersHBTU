@@ -55,7 +55,7 @@ public class AdminAddUser extends AppCompatActivity {
                 map.put("name", nameUserET.getText().toString());
                 map.put("password", passwordUserET.getText().toString());
                 map.put("email", emailUserET.getText().toString());
-                map.put("branch", passwordUserET.getText().toString());
+                map.put("branch", branchUserET.getText().toString());
                 map.put("rollno", rollnoUserET.getText().toString());
                 map.put("cycleid", "");
                 map.put("role", "student");

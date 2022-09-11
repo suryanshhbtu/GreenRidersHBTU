@@ -110,14 +110,14 @@
             android:layout_marginTop="15dp"
             android:background="@color/grey" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/emailLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rollnoLL"
         android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
