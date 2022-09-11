@@ -1,17 +1,30 @@
 package com.example.cyclerent;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 import java.util.HashMap;
 
@@ -30,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
     public static String userType = "";
     public static boolean addCycle = false;
     public static String _id = "";
+
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+    ImageView googleBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +61,22 @@ public class MainActivity extends AppCompatActivity {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
 
+
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(this,gso);
+        googleBtn = findViewById(R.id.google_btn);
+
+
+        googleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                signIn();
+
+            }
+        });
         // if login button is presses
 //        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -63,6 +98,36 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+    }
+    void signIn(){
+        Toast.makeText(this, "SignIn()", Toast.LENGTH_SHORT).show();
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent,100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                GoogleSignInAccount result = task.getResult(ApiException.class);
+//                navigateToSecondActivity();
+            } catch (ApiException e) {
+                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), resultCode+"", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+     void navigateToSecondActivity() {
+//        finish();
+
+         Toast.makeText(this, "Switching to Details Activity", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, DisplayDetails.class);
+        startActivity(intent);
     }
 
     private void handleLoginDialog() {
