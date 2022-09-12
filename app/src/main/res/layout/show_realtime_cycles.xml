@@ -5,7 +5,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".ShowRealtimeCycles">
+tools:context="com.example.GreenRidersHBTU.Util.ShowRealtimeCycles">
 
 <ListView
     android:id="@+id/list"

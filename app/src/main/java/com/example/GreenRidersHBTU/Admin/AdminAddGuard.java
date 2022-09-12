@@ -1,4 +1,4 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.GreenRidersHBTU.R;
+import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
+
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -16,15 +19,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SignUpUser extends AppCompatActivity {
-
+public class AdminAddGuard extends AppCompatActivity {
     private Retrofit retrofit;  // global variable of retrofit class
     private RetrofitInterface retrofitInterface; // global variable of retrofit Interface
     private String BASE_URL = "https://pacific-fortress-54764.herokuapp.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_user);
+        setContentView(R.layout.admin_add_guard);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL) // above defined
@@ -33,31 +35,27 @@ public class SignUpUser extends AppCompatActivity {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
         addUserHandler();
+
     }
     private void addUserHandler() {
 
 
-        LinearLayout addUserLL = (LinearLayout) findViewById(R.id.signUpLL);
-        final EditText nameSignUpET = (EditText) findViewById(R.id.nameSignUpET);
-        final EditText branchSignUpET = (EditText) findViewById(R.id.branchSignUpET);
-        final EditText rollnoSignUpET = (EditText) findViewById(R.id.rollnoSignUpET);
-        final EditText emailSignUpET = (EditText) findViewById(R.id.emailSignUpET);
-        final EditText passwordSignUpET = (EditText) findViewById(R.id.passwordSignUpET);
+        LinearLayout addUserLL = (LinearLayout) findViewById(R.id.addGuardLL);
+        final EditText nameGuardET =(EditText) findViewById(R.id.nameGuardET);
+        final EditText emailGuardET =(EditText) findViewById(R.id.emailGuardET);
+        final EditText passwordGuardET =(EditText) findViewById(R.id.passwordGuardET);
 
         addUserLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SignUpUser.this, "Sending Data...",
+                Toast.makeText(AdminAddGuard.this, "Sending Data...",
                         Toast.LENGTH_SHORT).show();
                 HashMap<String, String> map = new HashMap<>();
                 // preparing for post
-                map.put("name", nameSignUpET.getText().toString());
-                map.put("password", passwordSignUpET.getText().toString());
-                map.put("email", emailSignUpET.getText().toString());
-                map.put("branch", branchSignUpET.getText().toString());
-                map.put("rollno", rollnoSignUpET.getText().toString());
-                map.put("cycleid", "");
-                map.put("role", "student");
+                map.put("name", nameGuardET.getText().toString());
+                map.put("password", passwordGuardET.getText().toString());
+                map.put("email", emailGuardET.getText().toString());
+                map.put("role", "guard");
                 // post request
                 Call<Void> call = retrofitInterface.executeSignup(map);
                 // execute http request
@@ -66,16 +64,14 @@ public class SignUpUser extends AppCompatActivity {
                     public void onResponse(Call<Void> call, Response<Void> response) {
 
                         if (response.code() == 201) {
-                            Toast.makeText(SignUpUser.this, "Sign Up Successfully",
+                            Toast.makeText(AdminAddGuard.this, "Guard Added Successfully",
                                     Toast.LENGTH_LONG).show();
-                            nameSignUpET.setText("");
-                            passwordSignUpET.setText("");
-                            emailSignUpET.setText("");
-                            branchSignUpET.setText("");
-                            rollnoSignUpET.setText("");
+                            nameGuardET.setText("");
+                            passwordGuardET.setText("");
+                            emailGuardET.setText("");
 
                         } else {
-                            Toast.makeText(SignUpUser.this, "Wrong Credentials",
+                            Toast.makeText(AdminAddGuard.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
                         }
 
@@ -83,12 +79,13 @@ public class SignUpUser extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(SignUpUser.this, t.getMessage(),
+                        Toast.makeText(AdminAddGuard.this, t.getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
                 });
 
             }
         });
+
     }
 }

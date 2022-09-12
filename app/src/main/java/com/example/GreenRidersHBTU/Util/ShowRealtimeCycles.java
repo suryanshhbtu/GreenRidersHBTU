@@ -1,15 +1,17 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Util;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.HashMap;
+import com.example.GreenRidersHBTU.R;
+import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
+import com.example.GreenRidersHBTU.MainActivity;
+import com.example.GreenRidersHBTU.Model.Cycle;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -51,7 +53,7 @@ public class ShowRealtimeCycles extends AppCompatActivity {
     private void getRentedCycle() {
 
 //        // post request
-        Call<List<Cycle>> call = retrofitInterface.getRentedCycle("Bearer "+MainActivity.AUTH_TOKEN);
+        Call<List<Cycle>> call = retrofitInterface.getRentedCycle("Bearer "+ MainActivity.AUTH_TOKEN);
         // execute http request
         call.enqueue(new Callback<List<Cycle>>() {
             @Override

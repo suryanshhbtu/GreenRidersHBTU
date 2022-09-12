@@ -1,22 +1,26 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Guard;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.GreenRidersHBTU.MainActivity;
+import com.example.GreenRidersHBTU.Model.Cycle;
+import com.example.GreenRidersHBTU.R;
+import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
+import com.example.GreenRidersHBTU.Scanners.scannerView;
+import com.example.GreenRidersHBTU.Util.AppInfo;
+import com.example.GreenRidersHBTU.Util.ChangePassword;
 
 import java.util.HashMap;
 
@@ -26,8 +30,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoggedUserActivity extends AppCompatActivity {
-
+public class LoggedGuardActivity extends AppCompatActivity {
 
     private Retrofit retrofit;  // global variable of retrofit class
     private RetrofitInterface retrofitInterface; // global variable of retrofit Interface
@@ -35,14 +38,15 @@ public class LoggedUserActivity extends AppCompatActivity {
 
     private String BASE_URL = "https://pacific-fortress-54764.herokuapp.com";
     String _id;
-    TextView scanbtn, rentbtn;
-    LinearLayout scanLL , rentLL;
-
+    TextView scanbtn, returnbtn;
+    LinearLayout scanLL, returnLL;
     public static TextView cycleidTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logged_user);
+        setContentView(R.layout.activity_logged_guard);
+
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL) // above defined
@@ -52,86 +56,71 @@ public class LoggedUserActivity extends AppCompatActivity {
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
 
 
-
         Intent intent = getIntent();
 
         _id = intent.getStringExtra("_id");
-        String name = intent.getStringExtra("name");
-        String rollno = intent.getStringExtra("rollno");
-        String branch = intent.getStringExtra("branch");
         String email = intent.getStringExtra("email");
-        String cycleid = intent.getStringExtra("cycleid");
 
-        TextView nameTV = (TextView) findViewById(R.id.nameTV);
-        nameTV.setText(name);
-        TextView rollnoTV = (TextView) findViewById(R.id.rollnoTV);
-        rollnoTV.setText(rollno);
-        TextView branchTV = (TextView) findViewById(R.id.branchTV);
-        branchTV.setText(branch);
+        String name = intent.getStringExtra("name");
+
         TextView emailTV = (TextView) findViewById(R.id.emailTV);
         emailTV.setText(email);
+        TextView nameTV = (TextView) findViewById(R.id.nameTV);
+        nameTV.setText(name);
         cycleidTV = (TextView) findViewById(R.id.cycleidTV);
-        cycleidTV.setText(cycleid);
+//        cycleidTV.setText(cycleid);
 
+        returnbtn = (TextView) findViewById(R.id.returnbtn);
+
+
+        returnLL = (LinearLayout) findViewById(R.id.returnLL);
         scanLL = (LinearLayout) findViewById(R.id.scanLL);
-        rentLL = (LinearLayout) findViewById(R.id.rentLL);
-        cycleidTV =(TextView)findViewById(R.id.cycleidTV);
-        scanbtn=(TextView) findViewById(R.id.scanbtn);
 
-        rentbtn=(TextView) findViewById(R.id.rentbtn);
-        if(!cycleidTV.getText().equals("Not Rented")){
-            scanbtn.setVisibility(View.INVISIBLE);
-            scanLL.setVisibility(View.INVISIBLE);
-        }
 
-        rentbtn.setVisibility(View.INVISIBLE);
-        rentLL.setVisibility(View.INVISIBLE);
+        returnLL.setVisibility(View.INVISIBLE);
+
+        cycleidTV = (TextView) findViewById(R.id.cycleidTV);
+        scanbtn = (TextView) findViewById(R.id.scanbtn);
 
         scanbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(LoggedUserActivity.this, "Button Dababa",
+//                Toast.makeText(LoggedGuardActivity.this, "Button Dababa",
 //                        Toast.LENGTH_LONG).show();
-                startActivity(new Intent(LoggedUserActivity.this,scannerView.class));
-                rentbtn.setVisibility(View.VISIBLE);
-                scanbtn.setVisibility(View.INVISIBLE);
-                rentLL.setVisibility(View.VISIBLE);
+                startActivity(new Intent(LoggedGuardActivity.this, scannerView.class));
+
+                returnLL.setVisibility(View.VISIBLE);
                 scanLL.setVisibility(View.INVISIBLE);
             }
         });
 
-        rentbtn.setOnClickListener(new View.OnClickListener() {
-
+        returnbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rentbtn.setVisibility(View.VISIBLE);
-                rentLL.setVisibility(View.VISIBLE);
-//                Toast.makeText(LoggedUserActivity.this, "Rented Button is Pressed",
+//                Toast.makeText(LoggedGuardActivity.this, "Return Button is Pressed",
 //                        Toast.LENGTH_LONG).show();
 
                 String cycleid = (String) cycleidTV.getText();
-//                Toast.makeText(LoggedUserActivity.this,cycleid, Toast.LENGTH_LONG).show();
+//                Toast.makeText(LoggedGuardActivity.this, cycleid, Toast.LENGTH_LONG).show();
 
-                if(!cycleid.equals(""))
+                if (!cycleid.equals(""))
+
                     getCycleHandler(cycleid);
-//                if(statusOfCycle)
+////                if(statusOfCycle)
 
 
             }
         });
-
-    }
-    @Override
-    public void onBackPressed() {
-//            super.onBackPressed();
-        finishAffinity();
-        finish();
     }
 
+
+
+    //
+//    }
     private void getCycleHandler(String cycleid) {
-//        Toast.makeText(LoggedUserActivity.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();
+//        Toast.makeText(LoggedGuardActivity.this, "get cycle me ghusa", Toast.LENGTH_SHORT).show();
         // post request
-        Call<Cycle> call = retrofitInterface.getCycle("Bearer "+MainActivity.AUTH_TOKEN,cycleid);
+        Call<Cycle> call = retrofitInterface.getCycle("Bearer "+ MainActivity.AUTH_TOKEN,cycleid);
         // execute http request
         call.enqueue(new Callback<Cycle>() {
             @Override
@@ -146,74 +135,74 @@ public class LoggedUserActivity extends AppCompatActivity {
                     String cycleid = result.getCycleid();
                     String status = result.getStatus();
                     String stdid = result.getStdid();
-//                    Toast.makeText(LoggedUserActivity.this, status,
+//                    _id = stdid;
+//                    Toast.makeText(LoggedGuardActivity.this, status+" "+cycleid+" "+stdid,
 //                            Toast.LENGTH_LONG).show();
-                    if (status.equals("")) {
+                    if (status.equals("rented")) {
                         // AGAR RENTED NAHI HAI
 //                        statusOfCycle = true;
-                        setRentedHandler(cycleid);
-                        setRentedUserHandler(cycleid);
-                        rentbtn.setVisibility(View.INVISIBLE);
-                        rentLL.setVisibility(View.INVISIBLE);
-                        scanbtn.setVisibility(View.VISIBLE);
-                        rentbtn.setVisibility(View.INVISIBLE);
-//                        Toast.makeText(LoggedUserActivity.this,"Nahi Hai", Toast.LENGTH_SHORT).show();
+                        scanLL.setVisibility(View.VISIBLE);
+                        returnLL.setVisibility(View.INVISIBLE);
+
+                        removeRentedHandler(stdid);
+                        removeRentedUserHandler(cycleid);
+//                        Toast.makeText(LoggedGuardActivity.this, "Rented Hai", Toast.LENGTH_SHORT).show();
 
                     } else {
-//                        Toast.makeText(LoggedUserActivity.this,"Already Rented", Toast.LENGTH_SHORT).show();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LoggedUserActivity.this);
+//                        Toast.makeText(LoggedGuardActivity.this, "Cycle Rented Nahi Hai", Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LoggedGuardActivity.this);
                         builder.setTitle("ALERT");
-                        builder.setMessage("This Cycle Is Already Rented.");
+                        builder.setMessage("This Cycle Is Not Rented Yet");
                         builder.show();
-                        cycleidTV.setText("Not Rented");
-                        scanbtn.setVisibility(View.VISIBLE);
-                        rentbtn.setVisibility(View.INVISIBLE);
+
                         scanLL.setVisibility(View.VISIBLE);
-                        rentLL.setVisibility(View.INVISIBLE);
+                        returnLL.setVisibility(View.INVISIBLE);
+
                     }
 //                    startActivity(intent);
-
                 } else if (response.code() == 404) {
-                    Toast.makeText(LoggedUserActivity.this, "Wrong Credentials",
-                            Toast.LENGTH_LONG).show();
-                }else{
+                    Toast.makeText(LoggedGuardActivity.this, "Wrong Credentials",
+                            Toast.LENGTH_SHORT).show();
+                } else {
 
-                    Toast.makeText(LoggedUserActivity.this, "Some Error Occured",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoggedGuardActivity.this, "Some Error Occured",
+                            Toast.LENGTH_SHORT).show();
                 }
 
+                cycleidTV.setText(" Scan To Remove From Rent. ");
             }
 
             @Override
             public void onFailure(Call<Cycle> call, Throwable t) {
-                Toast.makeText(LoggedUserActivity.this, t.getMessage(),
+                Toast.makeText(LoggedGuardActivity.this, t.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void setRentedHandler(String cycleid) {
+    //
+    private void removeRentedHandler(String stdid) {
 
-//        Toast.makeText(LoggedUserActivity.this, "Renting Cycle ...",
-//                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(LoggedGuardActivity.this, "inside setRentedCycle",
+//                Toast.LENGTH_LONG).show();
         HashMap<String, String> map = new HashMap<>();
         // preparing for post
-        map.put("cycleid", cycleid);
+        map.put("cycleid", "");
 //        // post request
-        Call<Void> call = retrofitInterface.setRented(_id,map);
+        Call<Void> call = retrofitInterface.removeRented(stdid, map);
         // execute http request
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
 
                 if (response.code() == 200) {
-                    Toast.makeText(LoggedUserActivity.this, "Cycle Is Rented To You",
+                    Toast.makeText(LoggedGuardActivity.this, "Cycle Returned Successfully",
                             Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 404) {
-                    Toast.makeText(LoggedUserActivity.this, "Wrong Credentials",
+                    Toast.makeText(LoggedGuardActivity.this, "Wrong Credentials",
                             Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(LoggedUserActivity.this, "Some Error in Patch",
+                } else {
+                    Toast.makeText(LoggedGuardActivity.this, "Some Error in Patch",
                             Toast.LENGTH_LONG).show();
                 }
 
@@ -221,21 +210,21 @@ public class LoggedUserActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(LoggedUserActivity.this, t.getMessage(),
+                Toast.makeText(LoggedGuardActivity.this, t.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
         });
 
     }
+    //
+    private void removeRentedUserHandler(final String cycleid) {
 
-    private void setRentedUserHandler(String cycleid) {
-
-//        Toast.makeText(LoggedUserActivity.this, "inside setRentedCycle",
+//        Toast.makeText(LoggedGuardActivity.this, "inside setRentedCycle",
 //                Toast.LENGTH_LONG).show();
         HashMap<String, String> map = new HashMap<>();
         // preparing for post
-        map.put("status", "rented");
-        map.put("stdid", _id);
+        map.put("status", "");
+        map.put("stdid", "");
 //        // post request
         Call<Void> call = retrofitInterface.setRentedUser("Bearer "+MainActivity.AUTH_TOKEN,cycleid,map);
         // execute http request
@@ -244,26 +233,33 @@ public class LoggedUserActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
 
                 if (response.code() == 200) {
-//                    Toast.makeText(LoggedUserActivity.this, "Jerk Off",
+//                    Toast.makeText(LoggedGuardActivity.this, "Jerk Off",
 //                            Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
-                    Toast.makeText(LoggedUserActivity.this, "Wrong Credentials",
+                    Toast.makeText(LoggedGuardActivity.this, "Wrong Credentials",
                             Toast.LENGTH_LONG).show();
                 }else {
-                    Toast.makeText(LoggedUserActivity.this, "Some Error in Patch",
+                    Toast.makeText(LoggedGuardActivity.this, "Some Error in Patch",
                             Toast.LENGTH_LONG).show();
                 }
+
+
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(LoggedUserActivity.this, t.getMessage(),
+                Toast.makeText(LoggedGuardActivity.this, t.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
         });
 
     }
-
+    @Override
+    public void onBackPressed() {
+//            super.onBackPressed();
+        finishAffinity();
+        finish();
+    }
     // Adding Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -272,24 +268,22 @@ public class LoggedUserActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_catalog, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             case R.id.mailIt:
-
-                Toast.makeText(this,"Generating Mail",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Intent.ACTION_SEND);
+                  Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/html");
                 intent.putExtra(Intent.EXTRA_EMAIL, "");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Write Subject Here");
                 intent.putExtra(Intent.EXTRA_TEXT, "Write Your Feedback Here");
 
+                startActivity(Intent.createChooser(intent, "Send Email"));
+                Toast.makeText(this,"Generating Mail",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.logout:
                 MainActivity.AUTH_TOKEN = "";
-                 startActivity(new Intent(LoggedUserActivity.this, MainActivity.class));
+                startActivity(new Intent(LoggedGuardActivity.this, MainActivity.class));
                 SharedPreferences preferences =getSharedPreferences("login", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
@@ -297,13 +291,14 @@ public class LoggedUserActivity extends AppCompatActivity {
                 finish();
                 Toast.makeText(this,"Logout Successfully",Toast.LENGTH_SHORT).show();
 
-                return true;
-             case R.id.appinfo:
-                startActivity(new Intent(LoggedUserActivity.this, AppInfo.class));
-                Toast.makeText(this,"Loading Info",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Logout Successfully",Toast.LENGTH_SHORT).show();
+              return true;
+            case R.id.appinfo:
+                startActivity(new Intent(LoggedGuardActivity.this, AppInfo.class));
+                Toast.makeText(this,"App Info",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.changePasswordMenu:
-                startActivity(new Intent(LoggedUserActivity.this, ChangePassword.class));
+                startActivity(new Intent(LoggedGuardActivity.this, ChangePassword.class));
 
                 return true;
         }

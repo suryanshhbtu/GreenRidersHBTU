@@ -3,7 +3,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.example.CycleRent"
+        applicationId "com.example.GreenRidersHBTU"
         minSdkVersion 16
         versionCode 1
         versionName "1.0"

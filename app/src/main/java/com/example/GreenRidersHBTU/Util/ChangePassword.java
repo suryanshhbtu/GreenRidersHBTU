@@ -1,13 +1,16 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Util;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.GreenRidersHBTU.MainActivity;
+import com.example.GreenRidersHBTU.R;
+import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
 
 import java.util.HashMap;
 
@@ -17,66 +20,53 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AdminDeleteCycle extends AppCompatActivity {
+public class ChangePassword extends AppCompatActivity {
     private Retrofit retrofit;  // global variable of retrofit class
     private RetrofitInterface retrofitInterface; // global variable of retrofit Interface
     private String BASE_URL = "https://pacific-fortress-54764.herokuapp.com";
 
-    public static  TextView qrDeleteTV;
+    TextView changePasswordET;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_delete_cycle);
+        setContentView(R.layout.activity_change_password);
 
-        MainActivity.addCycle = true;
-        qrDeleteTV = (TextView)  findViewById(R.id.qrDeleteTV);
-        findViewById(R.id.QRLL).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Toast.makeText(LoggedUserActivity.this, "Button Dababa",
-//                        Toast.LENGTH_LONG).show();
-                startActivity(new Intent(AdminDeleteCycle.this,ScannerDeleteCycle.class));
-//                rentbtn.setVisibility(View.VISIBLE);
-//                scanbtn.setVisibility(View.INVISIBLE);
-//                rentLL.setVisibility(View.VISIBLE);
-//                scanLL.setVisibility(View.INVISIBLE);
-            }
-        });
-
+        changePasswordET = (TextView)  findViewById(R.id.changePasswordET);
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL) // above defined
                 .addConverterFactory(GsonConverterFactory.create()) // json -> javaObject
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
-        addCycleHandler();
+        changePasswordHandler();
 
     }
-    private void addCycleHandler() {
-        LinearLayout addCycleLL = (LinearLayout) findViewById(R.id.addCycleLL);
-        addCycleLL.setOnClickListener(new View.OnClickListener() {
+    private void changePasswordHandler() {
+        final LinearLayout changePasswordLL = (LinearLayout) findViewById(R.id.changePasswordLL);
+        changePasswordLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AdminDeleteCycle.this, "Sending Data...",
+                Toast.makeText(ChangePassword.this, "Sending Data...",
                         Toast.LENGTH_SHORT).show();
-
+                HashMap<String, String> map = new HashMap<>();
+                // preparing for post
+                map.put("password", changePasswordET.getText().toString());
                 // post request
-                Call<Void> call = retrofitInterface.executeDeleteCycle(qrDeleteTV.getText().toString());
+                Call<Void> call = retrofitInterface.executeChangePassword(MainActivity._id,map);
                 // execute http request
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
 
                         if (response.code() == 200) {
-                            Toast.makeText(AdminDeleteCycle.this, "Cycles Deleted Successfully",
+                            Toast.makeText(ChangePassword.this, "Password Changed  Successfully",
                                     Toast.LENGTH_LONG).show();
-                            qrDeleteTV.setText("");
-
+                                changePasswordET.setText("");
                         } else if (response.code() == 404) {
-                            Toast.makeText(AdminDeleteCycle.this, "Wrong Credentials",
+                            Toast.makeText(ChangePassword.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
                         }else{
-                            Toast.makeText(AdminDeleteCycle.this, "Some Error Occured",
+                            Toast.makeText(ChangePassword.this, "Some Error Occured",
                                     Toast.LENGTH_LONG).show();
                         }
 
@@ -84,7 +74,7 @@ public class AdminDeleteCycle extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(AdminDeleteCycle.this, t.getMessage(),
+                        Toast.makeText(ChangePassword.this, t.getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
                 });

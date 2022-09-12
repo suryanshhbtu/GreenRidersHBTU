@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.example.GreenRidersHBTU.MainActivity">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -203,20 +203,15 @@
         tools:layout_editor_absoluteY="113dp"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/signUpTV"
+    <com.google.android.gms.common.SignInButton
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        android:id="@+id/sign_in_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="460dp"
-        android:fontFamily="@font/poppinsbold"
-        android:gravity="center"
-        android:text=" Google SignUp !"
-        android:textColor="@color/colorPrimary"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-16dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"/>
 
     <ImageView
             android:id="@+id/imageView2"

@@ -1,4 +1,4 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Model;
 
 import com.google.gson.annotations.SerializedName;
 

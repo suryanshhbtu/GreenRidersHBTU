@@ -1,4 +1,4 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Model;
 
 public class Cycle {
     String _id;

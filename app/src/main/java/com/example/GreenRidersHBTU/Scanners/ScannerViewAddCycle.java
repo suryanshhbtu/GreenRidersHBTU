@@ -1,4 +1,4 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Scanners;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.Manifest;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.GreenRidersHBTU.Admin.AdminAddCycle;
+import com.example.GreenRidersHBTU.MainActivity;
+import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -17,7 +20,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import retrofit2.Retrofit;
 
-public class ScannerDeleteCycle extends AppCompatActivity implements ZXingScannerView.ResultHandler
+public class ScannerViewAddCycle extends AppCompatActivity implements ZXingScannerView.ResultHandler
 {
 
     private Retrofit retrofit;  // global variable of retrofit class
@@ -54,8 +57,9 @@ public class ScannerDeleteCycle extends AppCompatActivity implements ZXingScanne
     @Override
     public void handleResult(Result rawResult) {
 
-        Toast.makeText(com.example.cyclerent.ScannerDeleteCycle.this,rawResult.getText(), Toast.LENGTH_SHORT).show();
-        AdminDeleteCycle.qrDeleteTV.setText(rawResult.getText());
+        Toast.makeText(ScannerViewAddCycle.this,rawResult.getText(), Toast.LENGTH_SHORT).show();
+        AdminAddCycle.qrTV.setText(rawResult.getText());
+        MainActivity.addCycle = false;
         cycleid = rawResult.getText();
         onBackPressed();
     }

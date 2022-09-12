@@ -1,4 +1,4 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,9 +9,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.GreenRidersHBTU.MainActivity;
+import com.example.GreenRidersHBTU.R;
+import com.example.GreenRidersHBTU.Util.AppInfo;
+import com.example.GreenRidersHBTU.Util.ChangePassword;
+import com.example.GreenRidersHBTU.Util.ShowRealtimeCycles;
 
 public class AdminHome extends AppCompatActivity {
     public static String _id;

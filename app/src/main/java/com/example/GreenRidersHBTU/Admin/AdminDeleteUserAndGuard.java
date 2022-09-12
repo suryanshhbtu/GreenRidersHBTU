@@ -1,4 +1,4 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,8 +8,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.security.Guard;
-import java.util.HashMap;
+import com.example.GreenRidersHBTU.R;
+import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,14 +17,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AdminAddGuard extends AppCompatActivity {
+public class AdminDeleteUserAndGuard extends AppCompatActivity {
     private Retrofit retrofit;  // global variable of retrofit class
     private RetrofitInterface retrofitInterface; // global variable of retrofit Interface
     private String BASE_URL = "https://pacific-fortress-54764.herokuapp.com";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_add_guard);
+        setContentView(R.layout.admin_delete_user_and_guard);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL) // above defined
@@ -38,46 +39,41 @@ public class AdminAddGuard extends AppCompatActivity {
     private void addUserHandler() {
 
 
-        LinearLayout addUserLL = (LinearLayout) findViewById(R.id.addGuardLL);
-        final EditText nameGuardET =(EditText) findViewById(R.id.nameGuardET);
-        final EditText emailGuardET =(EditText) findViewById(R.id.emailGuardET);
-        final EditText passwordGuardET =(EditText) findViewById(R.id.passwordGuardET);
+        LinearLayout deleteBtnLL = (LinearLayout) findViewById(R.id.deleteBtnLL);
+        final EditText emailUserET =(EditText) findViewById(R.id.emailDeleteET);
 
-        addUserLL.setOnClickListener(new View.OnClickListener() {
+        deleteBtnLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AdminAddGuard.this, "Sending Data...",
+                Toast.makeText(AdminDeleteUserAndGuard.this, "Sending Data...",
                         Toast.LENGTH_SHORT).show();
-                HashMap<String, String> map = new HashMap<>();
-                // preparing for post
-                map.put("name", nameGuardET.getText().toString());
-                map.put("password", passwordGuardET.getText().toString());
-                map.put("email", emailGuardET.getText().toString());
-                map.put("role", "guard");
                 // post request
-                Call<Void> call = retrofitInterface.executeSignup(map);
+                Call<Void> call = retrofitInterface.executeDelete(emailUserET.getText().toString());
                 // execute http request
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
 
-                        if (response.code() == 201) {
-                            Toast.makeText(AdminAddGuard.this, "Guard Added Successfully",
+                        if (response.code() == 200) {
+                            Toast.makeText(AdminDeleteUserAndGuard.this, "User Deleted Successfully",
                                     Toast.LENGTH_LONG).show();
-                            nameGuardET.setText("");
-                            passwordGuardET.setText("");
-                            emailGuardET.setText("");
+                            emailUserET.setText("");
 
-                        } else {
-                            Toast.makeText(AdminAddGuard.this, "Wrong Credentials",
+                        } else if (response.code() == 404) {
+                            Toast.makeText(AdminDeleteUserAndGuard.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
+                        }else{
+                            {
+                                Toast.makeText(AdminDeleteUserAndGuard.this, "Some Error Occured",
+                                        Toast.LENGTH_LONG).show();
+                            }
                         }
 
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(AdminAddGuard.this, t.getMessage(),
+                        Toast.makeText(AdminDeleteUserAndGuard.this, t.getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
                 });

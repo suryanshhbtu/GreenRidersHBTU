@@ -1,6 +1,6 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -11,14 +11,24 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.example.GreenRidersHBTU.Model.LoginResult;
+import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
+import com.example.GreenRidersHBTU.User.LoggedUserActivity;
+import com.example.GreenRidersHBTU.Admin.AdminHome;
+import com.example.GreenRidersHBTU.Guard.LoggedGuardActivity;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.HashMap;
 
@@ -28,7 +38,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     SharedPreferences sharedPreferences;
 
@@ -46,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
     private LoginResult result;
 
+
+
+    //Integerated SignUp
+    SignInButton signInButton;
+    private GoogleApiClient googleApiClient;
+    TextView textView;
+    private static final int RC_SIGN_IN = 1;
 
 
     @Override
@@ -110,8 +127,47 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 //        findViewById(R.id.signUpTV).setOnClickListener(View);
+//        startActivity(new Intent(MainActivity.this, AdminHome.class));
+        GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleApiClient=new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
 
+        signInButton=(SignInButton)findViewById(R.id.sign_in_button);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent,RC_SIGN_IN);
+            }
+        });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RC_SIGN_IN){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result){
+        if(result.isSuccess()){
+            gotoProfile();
+        }else{
+            Toast.makeText(getApplicationContext(),"Sign in cancel",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void gotoProfile(){
+        Intent intent=new Intent(MainActivity.this,SignUpUser.class);
+        startActivity(intent);
+    }
+
+
 
     private void handleLoginDialog() {
 
@@ -318,4 +374,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }

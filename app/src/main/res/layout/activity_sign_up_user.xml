@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".SignUpUser"
+tools:context="com.example.GreenRidersHBTU.SignUpUser"
 android:padding="26dp">
 
     <TextView
@@ -35,7 +35,7 @@ android:padding="26dp">
         android:textSize="13sp"
         android:textStyle="bold" />
 
-    <EditText
+    <TextView
         android:id="@+id/nameSignUpET"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -68,7 +68,7 @@ android:padding="26dp">
         android:textSize="13sp"
         android:textStyle="bold" />
 
-    <EditText
+    <TextView
         android:id="@+id/branchSignUpET"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -101,7 +101,7 @@ android:padding="26dp">
         android:textSize="13sp"
         android:textStyle="bold" />
 
-    <EditText
+    <TextView
         android:id="@+id/rollnoSignUpET"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -135,7 +135,7 @@ android:padding="26dp">
         android:textSize="13sp"
         android:textStyle="bold" />
 
-    <EditText
+    <TextView
         android:id="@+id/emailSignUpET"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

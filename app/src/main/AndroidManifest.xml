@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cyclerent">
+    package="com.example.GreenRidersHBTU">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -14,50 +14,50 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SignUpUser"
+            android:name="com.example.GreenRidersHBTU.SignUpUser"
             android:exported="false" />
         <activity
-            android:name=".ShowRealtimeCycles"
+            android:name="com.example.GreenRidersHBTU.Util.ShowRealtimeCycles"
             android:exported="false" />
         <activity
-            android:name=".ChangePassword"
+            android:name="com.example.GreenRidersHBTU.Util.ChangePassword"
             android:exported="false" />
         <activity
-            android:name=".ScannerDeleteCycle"
+            android:name="com.example.GreenRidersHBTU.Scanners.ScannerDeleteCycle"
             android:exported="false" />
         <activity
-            android:name=".ScannerViewAddCycle"
+            android:name="com.example.GreenRidersHBTU.Scanners.ScannerViewAddCycle"
             android:exported="false" />
         <activity
-            android:name=".AdminDeleteCycle"
+            android:name="com.example.GreenRidersHBTU.Admin.AdminDeleteCycle"
             android:exported="false" />
         <activity
-            android:name=".AdminDeleteUserAndGuard"
+            android:name="com.example.GreenRidersHBTU.Admin.AdminDeleteUserAndGuard"
             android:exported="false" />
         <activity
-            android:name=".AdminAddGuard"
+            android:name="com.example.GreenRidersHBTU.Admin.AdminAddGuard"
             android:exported="false" />
         <activity
-            android:name=".AdminAddUser"
+            android:name="com.example.GreenRidersHBTU.Admin.AdminAddUser"
             android:exported="false" />
         <activity
-            android:name=".AdminAddCycle"
+            android:name="com.example.GreenRidersHBTU.Admin.AdminAddCycle"
             android:exported="false" />
         <activity
-            android:name=".AdminHome"
+            android:name="com.example.GreenRidersHBTU.Admin.AdminHome"
             android:exported="false" />
         <activity
-            android:name=".AppInfo"
+            android:name="com.example.GreenRidersHBTU.Util.AppInfo"
             android:exported="false" />
         <activity
-            android:name=".LoggedGuardActivity"
+            android:name="com.example.GreenRidersHBTU.Guard.LoggedGuardActivity"
             android:exported="false" />
         <activity
-            android:name=".LoggedUserActivity"
+            android:name="com.example.GreenRidersHBTU.User.LoggedUserActivity"
             android:exported="false" />
-        <activity android:name=".scannerView" />
+        <activity android:name="com.example.GreenRidersHBTU.Scanners.scannerView" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.GreenRidersHBTU.MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

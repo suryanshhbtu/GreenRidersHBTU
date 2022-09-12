@@ -1,14 +1,18 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Scanners;
 
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.GreenRidersHBTU.Guard.LoggedGuardActivity;
+import com.example.GreenRidersHBTU.User.LoggedUserActivity;
+import com.example.GreenRidersHBTU.MainActivity;
+import com.example.GreenRidersHBTU.Model.Cycle;
+import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -16,8 +20,6 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-
-import java.util.HashMap;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import retrofit2.Call;
@@ -68,7 +70,7 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
             }
 //            if(MainActivity.addCycle){
 
-                Toast.makeText(com.example.cyclerent.scannerView.this,rawResult.getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(com.example.GreenRidersHBTU.Scanners.scannerView.this,rawResult.getText(), Toast.LENGTH_SHORT).show();
 //                AdminAddCycle.qrTV.setText(rawResult.getText());
 //                MainActivity.addCycle = false;
 //            }
@@ -79,7 +81,7 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
         }
 
         private void getCycleHandler(String cycleid) {
-            Toast.makeText(com.example.cyclerent.scannerView.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();
+            Toast.makeText(com.example.GreenRidersHBTU.Scanners.scannerView.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();
             // post request
             Call<Cycle> call = retrofitInterface.getCycle("Bearer "+MainActivity.AUTH_TOKEN,cycleid);
             // execute http request
@@ -100,10 +102,10 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
                         String stdid = result.getStdid();
 
                         if (status.equals("")) {
-                            Toast.makeText(com.example.cyclerent.scannerView.this,"Nahi Hai", Toast.LENGTH_LONG).show();
+                            Toast.makeText(com.example.GreenRidersHBTU.Scanners.scannerView.this,"Nahi Hai", Toast.LENGTH_LONG).show();
 
                         } else {
-                            Toast.makeText(com.example.cyclerent.scannerView.this,"Pehle Se Rented Hai", Toast.LENGTH_LONG).show();
+                            Toast.makeText(com.example.GreenRidersHBTU.Scanners.scannerView.this,"Pehle Se Rented Hai", Toast.LENGTH_LONG).show();
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(scannerView.this);
                             builder1.setTitle("This Cycle Is Already Rented");
                         }

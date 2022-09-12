@@ -1,4 +1,4 @@
-package com.example.cyclerent;
+package com.example.GreenRidersHBTU.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.GreenRidersHBTU.MainActivity;
+import com.example.GreenRidersHBTU.R;
+import com.example.GreenRidersHBTU.RetrofitApiCalls.RetrofitInterface;
+import com.example.GreenRidersHBTU.Scanners.ScannerViewAddCycle;
+
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -17,53 +22,69 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ChangePassword extends AppCompatActivity {
+public class AdminAddCycle extends AppCompatActivity {
+
     private Retrofit retrofit;  // global variable of retrofit class
     private RetrofitInterface retrofitInterface; // global variable of retrofit Interface
     private String BASE_URL = "https://pacific-fortress-54764.herokuapp.com";
 
-    TextView changePasswordET;
+
+    public static  TextView qrTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
+        setContentView(R.layout.admin_add_cycle);
 
-        changePasswordET = (TextView)  findViewById(R.id.changePasswordET);
+        MainActivity.addCycle = true;
+        qrTV = (TextView)  findViewById(R.id.qrTV);
+        findViewById(R.id.QRLL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Toast.makeText(LoggedUserActivity.this, "Button Dababa",
+//                        Toast.LENGTH_LONG).show();
+                startActivity(new Intent(AdminAddCycle.this, ScannerViewAddCycle.class));
+//                rentbtn.setVisibility(View.VISIBLE);
+//                scanbtn.setVisibility(View.INVISIBLE);
+//                rentLL.setVisibility(View.VISIBLE);
+//                scanLL.setVisibility(View.INVISIBLE);
+            }
+        });
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL) // above defined
                 .addConverterFactory(GsonConverterFactory.create()) // json -> javaObject
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class); // instantinsing
-        changePasswordHandler();
+        addCycleHandler();
 
     }
-    private void changePasswordHandler() {
-        final LinearLayout changePasswordLL = (LinearLayout) findViewById(R.id.changePasswordLL);
-        changePasswordLL.setOnClickListener(new View.OnClickListener() {
+    private void addCycleHandler() {
+        LinearLayout addCycleLL = (LinearLayout) findViewById(R.id.addCycleLL);
+        addCycleLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ChangePassword.this, "Sending Data...",
+                Toast.makeText(AdminAddCycle.this, "Sending Data...",
                         Toast.LENGTH_SHORT).show();
                 HashMap<String, String> map = new HashMap<>();
                 // preparing for post
-                map.put("password", changePasswordET.getText().toString());
+                map.put("cycleid", qrTV.getText().toString());
+                map.put("status", "");
+                map.put("stdid", "");
                 // post request
-                Call<Void> call = retrofitInterface.executeChangePassword(MainActivity._id,map);
+                Call<Void> call = retrofitInterface.executeCycleSignup(map);
                 // execute http request
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
 
                         if (response.code() == 200) {
-                            Toast.makeText(ChangePassword.this, "Password Changed  Successfully",
+                            Toast.makeText(AdminAddCycle.this, "Cycles Added Successfully",
                                     Toast.LENGTH_LONG).show();
-                                changePasswordET.setText("");
-                        } else if (response.code() == 404) {
-                            Toast.makeText(ChangePassword.this, "Wrong Credentials",
-                                    Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(ChangePassword.this, "Some Error Occured",
+                            qrTV.setText("Scan To Add Another Cycle");
+
+                        } else{
+                            Toast.makeText(AdminAddCycle.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
                         }
 
@@ -71,7 +92,7 @@ public class ChangePassword extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(ChangePassword.this, t.getMessage(),
+                        Toast.makeText(AdminAddCycle.this, t.getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
                 });
