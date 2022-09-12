@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.GreenRidersHBTU.Util.AppInfo">
+    tools:context=".AppInfo">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="200dp"
-        android:text=" Made By Shubham , Abhishek, Harshit, Aryan, Yash, Shivam,Suryansh "
+        android:text=" Made By #3Idiots Shivam Suryansh Yash"
         ></TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
