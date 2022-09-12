@@ -1,6 +1,7 @@
 package com.example.cyclerent;
 
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.Response;
 import retrofit2.Call;
@@ -65,6 +66,11 @@ public interface RetrofitInterface {
 
     @PATCH("/users/password/{id}")
     Call<Void> executeChangePassword(@Path("id") String abc,@Body HashMap<String, String> map);
+
+
+
+    @GET("/cycles/all")
+    Call<List<Cycle>> getRentedCycle(@Header("Authorization") String AUTH_KEY);
 //    @PATCH("cycles/{cycleid}")
 //    Call<Cycle> getCycle(@Path("cycleid") String id);
 }

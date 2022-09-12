@@ -7,16 +7,17 @@
         tools:context=".AdminDeleteUserAndGuard"
         android:padding="26dp">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15sp"
-            android:fontFamily="sans-serif-light"
-            android:text="Add Credentials"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+    <TextView
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15sp"
+        android:fontFamily="sans-serif-light"
+        android:text="Add Credentials"
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/deleteLL"
@@ -35,6 +36,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:textStyle="bold"
                 android:id="@+id/emailDeleteET"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -55,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/deleteLL"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/rounded_edittext"
             android:orientation="vertical">
 
             <TextView

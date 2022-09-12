@@ -61,9 +61,9 @@ public class scannerView extends AppCompatActivity implements ZXingScannerView.R
 
         @Override
         public void handleResult(Result rawResult) {
-            if(!MainActivity.userType.equals("guard")){
+            if(!MainActivity.role.equals("guard")){
                 LoggedUserActivity.cycleidTV.setText(rawResult.getText());
-            }else if(!MainActivity.userType.equals("student")){       // student kia hai
+            }else if(!MainActivity.role.equals("student")){       // student kia hai
                 LoggedGuardActivity.cycleidTV.setText(rawResult.getText());
             }
 //            if(MainActivity.addCycle){

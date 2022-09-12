@@ -4,7 +4,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -119,7 +121,12 @@ public class LoggedUserActivity extends AppCompatActivity {
         });
 
     }
-
+    @Override
+    public void onBackPressed() {
+//            super.onBackPressed();
+        finishAffinity();
+        finish();
+    }
 
     private void getCycleHandler(String cycleid) {
 //        Toast.makeText(LoggedUserActivity.this,"get cycle me ghusa", Toast.LENGTH_LONG).show();
@@ -283,7 +290,11 @@ public class LoggedUserActivity extends AppCompatActivity {
             case R.id.logout:
                 MainActivity.AUTH_TOKEN = "";
                  startActivity(new Intent(LoggedUserActivity.this, MainActivity.class));
-
+                SharedPreferences preferences =getSharedPreferences("login", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+                finish();
                 Toast.makeText(this,"Logout Successfully",Toast.LENGTH_SHORT).show();
 
                 return true;

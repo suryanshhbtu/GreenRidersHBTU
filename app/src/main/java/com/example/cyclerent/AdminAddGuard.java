@@ -64,8 +64,11 @@ public class AdminAddGuard extends AppCompatActivity {
                         if (response.code() == 201) {
                             Toast.makeText(AdminAddGuard.this, "Guard Added Successfully",
                                     Toast.LENGTH_LONG).show();
+                            nameGuardET.setText("");
+                            passwordGuardET.setText("");
+                            emailGuardET.setText("");
 
-                        } else if (response.code() == 404) {
+                        } else {
                             Toast.makeText(AdminAddGuard.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
                         }

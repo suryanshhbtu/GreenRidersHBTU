@@ -7,16 +7,17 @@
         tools:context=".AdminAddCycle"
         android:padding="26dp">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15sp"
-            android:fontFamily="sans-serif-light"
-            android:text="Add Cycle Credentials"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+    <TextView
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15sp"
+        android:fontFamily="sans-serif-light"
+        android:text="Add Cycle Credentials"
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/qrLL"
@@ -35,6 +36,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/qrTV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -55,7 +57,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/qrLL"
-        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
         <TextView
@@ -65,6 +66,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="8dp"
+            android:background="@drawable/rounded_edittext"
             android:text="Scan QR"
             android:textSize="24dp" />
     </LinearLayout>
@@ -75,7 +77,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/QRLL"
-            android:background="@color/colorPrimary"
             android:orientation="vertical">
 
             <TextView
@@ -86,6 +87,7 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Add Cycle"
+                android:background="@drawable/rounded_edittext"
                 android:textSize="24dp" />
         </LinearLayout>
     </RelativeLayout>

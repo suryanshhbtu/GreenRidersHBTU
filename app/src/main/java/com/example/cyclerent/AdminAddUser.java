@@ -69,8 +69,13 @@ public class AdminAddUser extends AppCompatActivity {
                         if (response.code() == 201) {
                             Toast.makeText(AdminAddUser.this, "User Added Successfully",
                                     Toast.LENGTH_LONG).show();
+                            nameUserET.setText("");
+                            passwordUserET.setText("");
+                            emailUserET.setText("");
+                            branchUserET.setText("");
+                            rollnoUserET.setText("");
 
-                        } else if (response.code() == 404) {
+                        } else{
                             Toast.makeText(AdminAddUser.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
                         }

@@ -16,21 +16,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".CatalogActivity">
     <item
+        android:textStyle="bold"
         android:id="@+id/changePasswordMenu"
         android:title="Change Password"
         app:showAsAction="never" />
     <item
         android:id="@+id/logout"
         android:title="Logout"
+        android:textStyle="bold"
         app:showAsAction="never" />
     <item
         android:id="@+id/mailIt"
         app:showAsAction="ifRoom"
+        android:textStyle="bold"
         android:title="Feedback"/>
 
     <item
         android:id="@+id/appinfo"
         android:title="App Info"
+        android:textStyle="bold"
         app:showAsAction="never" />
 
 </menu>

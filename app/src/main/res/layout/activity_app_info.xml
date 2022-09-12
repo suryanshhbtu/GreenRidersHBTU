@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="200dp"
-        android:text=" Made By #3Idiots Shivam Suryansh Yash"
+        android:text=" Made By Shubham , Abhishek, Harshit, Aryan, Yash, Shivam,Suryansh "
         ></TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

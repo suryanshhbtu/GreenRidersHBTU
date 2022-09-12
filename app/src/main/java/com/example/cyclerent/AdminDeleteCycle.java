@@ -70,6 +70,7 @@ public class AdminDeleteCycle extends AppCompatActivity {
                         if (response.code() == 200) {
                             Toast.makeText(AdminDeleteCycle.this, "Cycles Deleted Successfully",
                                     Toast.LENGTH_LONG).show();
+                            qrDeleteTV.setText("");
 
                         } else if (response.code() == 404) {
                             Toast.makeText(AdminDeleteCycle.this, "Wrong Credentials",

@@ -23,6 +23,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -62,7 +63,20 @@
                         android:inputType="textPassword"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <CheckBox
+                        android:id="@+id/showPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Show Password" />
+
+
+                    <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -72,10 +86,12 @@
                     android:gravity="end"
                     android:text="Forgot Password?"
                     android:textColor="#3F51B5" />
+                </LinearLayout>
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <LinearLayout
+    <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,6 +102,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardView">
 
             <CheckBox
+                android:id="@+id/rememberMe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -150,6 +167,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2"/>
 
         <LinearLayout
+            android:id="@+id/bottomLL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -170,13 +188,46 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/hbtucentenarylogo" />
 
+    <TextView
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="HBTU CYCLE RENT"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="28sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="113dp"
+        tools:ignore="MissingConstraints" />
 
-        <ImageView
+    <TextView
+        android:id="@+id/signUpTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:fontFamily="@font/poppinsbold"
+        android:gravity="center"
+        android:text=" Google SignUp !"
+        android:textColor="@color/colorPrimary"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-16dp" />
+
+    <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/illustration" />
+        app:srcCompat="@drawable/illustration" >
+
+
+    </ImageView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

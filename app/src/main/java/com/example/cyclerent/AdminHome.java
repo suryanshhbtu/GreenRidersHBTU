@@ -2,7 +2,9 @@ package com.example.cyclerent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,10 +64,21 @@ public class AdminHome extends AppCompatActivity {
                 startActivity(new Intent(AdminHome.this, AdminAddGuard.class));
             }
         });
+        findViewById(R.id.realtime_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminHome.this, ShowRealtimeCycles.class));
+            }
+        });
 
 
     }
-
+    @Override
+    public void onBackPressed() {
+//            super.onBackPressed();
+        finishAffinity();
+        finish();
+    }
     // Adding Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,6 +103,12 @@ public class AdminHome extends AppCompatActivity {
             case R.id.logout:
                 MainActivity.AUTH_TOKEN = "";
                 startActivity(new Intent(AdminHome.this, MainActivity.class));
+                SharedPreferences preferences =getSharedPreferences("login", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+                finish();
+                Toast.makeText(this,"Logout Successfully",Toast.LENGTH_SHORT).show();
 
                 Toast.makeText(this,"Logout Successfully",Toast.LENGTH_SHORT).show();
                 return true;

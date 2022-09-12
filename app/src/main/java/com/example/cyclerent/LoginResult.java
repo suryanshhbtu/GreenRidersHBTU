@@ -18,7 +18,18 @@ public class LoginResult {
     private String cycleid;
     private String role;
 
-
+    public LoginResult(String message, String token, String _id, String email, String password, String name, String rollno, String branch, String cycleid, String role) {
+        this.message = message;
+        this.token = token;
+        this._id = _id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.rollno = rollno;
+        this.branch = branch;
+        this.cycleid = cycleid;
+        this.role = role;
+    }
 
     public String getRole() {
         return role;

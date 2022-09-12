@@ -19,6 +19,7 @@ android:padding="28dp">
         android:layout_marginTop="20dp"/>
 
     <TextView
+        android:textColor="@color/black"
         android:id="@+id/nameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,6 +102,7 @@ android:padding="28dp">
                     android:fontFamily="sans-serif-light"
                     android:text="200106069@hbtu.ac.in"
                     android:textColor="#000000"
+                    android:textStyle="bold"
                     android:textSize="18sp" />
 
                 <View
@@ -130,8 +132,9 @@ android:padding="28dp">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Not  Rented"
+                    android:text=" Scan To Remove From Rent. "
                     android:textColor="#000000"
+                    android:textStyle="bold"
                     android:textSize="18sp" />
 
                 <View
@@ -148,7 +151,6 @@ android:padding="28dp">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="@color/colorPrimary"
                 android:orientation="vertical">
 
                 <TextView
@@ -160,7 +162,8 @@ android:padding="28dp">
                     android:text="Scan QR "
                     android:textColor="@color/white"
                     android:textSize="24dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:background="@drawable/rounded_edittext"/>
             </LinearLayout>
 
             <LinearLayout
@@ -168,7 +171,6 @@ android:padding="28dp">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="@color/colorPrimary"
                 android:orientation="vertical">
 
                 <TextView
@@ -179,6 +181,7 @@ android:padding="28dp">
                     android:padding="8dp"
                     android:text="Return Cycle"
                     android:textColor="@color/white"
+                    android:background="@drawable/rounded_edittext"
                     android:textSize="24dp"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -56,6 +56,7 @@ public class AdminDeleteUserAndGuard extends AppCompatActivity {
                         if (response.code() == 200) {
                             Toast.makeText(AdminDeleteUserAndGuard.this, "User Deleted Successfully",
                                     Toast.LENGTH_LONG).show();
+                            emailUserET.setText("");
 
                         } else if (response.code() == 404) {
                             Toast.makeText(AdminDeleteUserAndGuard.this, "Wrong Credentials",

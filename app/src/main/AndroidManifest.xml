@@ -14,6 +14,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SignUpUser"
+            android:exported="false" />
+        <activity
+            android:name=".ShowRealtimeCycles"
+            android:exported="false" />
+        <activity
             android:name=".ChangePassword"
             android:exported="false" />
         <activity

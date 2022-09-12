@@ -39,7 +39,7 @@ public class ChangePassword extends AppCompatActivity {
 
     }
     private void changePasswordHandler() {
-        LinearLayout changePasswordLL = (LinearLayout) findViewById(R.id.changePasswordLL);
+        final LinearLayout changePasswordLL = (LinearLayout) findViewById(R.id.changePasswordLL);
         changePasswordLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +58,7 @@ public class ChangePassword extends AppCompatActivity {
                         if (response.code() == 200) {
                             Toast.makeText(ChangePassword.this, "Password Changed  Successfully",
                                     Toast.LENGTH_LONG).show();
-
+                                changePasswordET.setText("");
                         } else if (response.code() == 404) {
                             Toast.makeText(ChangePassword.this, "Wrong Credentials",
                                     Toast.LENGTH_LONG).show();
